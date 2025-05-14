@@ -33,27 +33,34 @@ const ResendActivationForm: FC = () => {
   }, [resendActivationFailed]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setLoading(true);
-
-    const email = event.currentTarget.email.value;
-
-    try {
-        await HandleResendActivation(email); 
-        notification.success({
-            message: "Resend Aktivasi Berhasil!",
-            description: "Silakan cek email Anda!",
-        });
-
-    } catch (error) {
-        setresendActivationFailed("Invalid credentials");
-        notification.error({
-            message: "Resend Activation Gagal!",
-            description: "Mohon maaf, Kredensial Anda tidak valid!",
-        });
-    } finally {
-        setLoading(false);
-    }
+      event.preventDefault();
+      setLoading(true);
+  
+      const email = event.currentTarget.email.value;  // Ambil email dari form input
+  
+      try {
+          const result = await HandleResendActivation(email);
+  
+          if (result.success) {
+              notification.success({
+                  message: "Permintaan Resend Kode Aktivasi Berhasil!",
+                  description: "Silakan cek email Anda untuk instruksi lebih lanjut.",
+              });
+          } else {
+              notification.error({
+                  message: "Permintaan Resend Kode Aktivasi Gagal!",
+                  description: result.message || "Mohon maaf, kami tidak dapat menemukan akun dengan email tersebut.",
+              });
+          }
+      } catch (error: any) {
+          // Menangani kesalahan jaringan atau kesalahan lainnya
+          notification.error({
+              message: "Permintaan Resend Kode Aktivasi Gagal!",
+              description: "Mohon maaf, kami tidak dapat menghubungi server saat ini. Coba lagi nanti.",
+          });
+      } finally {
+          setLoading(false);
+      }
   };
 
   const loadingIndicator = <LoadingOutlined style={{ fontSize: 24, color: 'blue' }} spin />;
@@ -63,16 +70,16 @@ const ResendActivationForm: FC = () => {
   <Helmet>
     <title>{appName}</title>
   </Helmet>
-  <div className="pt-24 sm:pt-24 sm:mb-20 md:pt-6 lg:pt-6 flex flex-col lg:flex-row justify-between items-center min-h-screen px-4 md:px-8">
+  <div className="pt-24 sm:pt-24 sm:mb-20 md:pt-6 lg:pt-6 flex flex-col lg:flex-row lg:justify-between items-center min-h-screen px-4 md:px-8">
     <div className="sm:pl-0 md:pl-0 lg:pl-10 pt-2 sm:pt-2 md:pt-16 lg:pt-6 mr-0 lg:mr-24 md:mr-0 sm:mr-0 text-center lg:text-left mb-8 lg:mb-0">
-      <h1 className="text-6xl font-bold text-[#7f0353]">FESY</h1>
-      <h3 className="text-xl text-[#5c595f]">Fashion - Exclusive - Secondhand - for You</h3>
+        <h1 className="text-6xl font-bold text-maintheme">Cardium</h1>
+        <h3 className="text-l text-[#5c595f]">Explore Your Heart, Empower Your Health</h3>
     </div>
 
     {/* Bagian Kanan: Panel resendActivation */}
     <div className="flex flex-col md:flex-row bg-white/90 rounded-lg shadow-left-bottom border border-gray-400 p-6 space-y-4 w-full sm:max-w-lg md:max-w-2xl lg:max-w-3xl min-w-[300px]">
       <div className="w-full md:w-1/2 md:pr-4">
-        <h1 className="text-4xl font-bold text-gray-800 text-center pb-[30px]">Resend Aktivasi</h1>
+        <h1 className="text-4xl font-bold text-gray-800 text-center pb-[30px] mt-10">Resend Aktivasi</h1>
         <form className="content-center" onSubmit={handleSubmit}>
           <InputElement
             inputClass="mb-6"
@@ -85,13 +92,13 @@ const ResendActivationForm: FC = () => {
           />
           <Button
             type="submit"
-            variant="bg-[#7f0353] w-full hover:bg-green-900"
+            variant="bg-maintheme w-full hover:bg-boldmaintheme"
             message="Resend Aktivasi"
             disabled={loading}
           />
         </form>
         <p className="text-slate-500 mt-4 text-center">Kembali ke Login ? silakan&nbsp;
-          <Link to="/Login" className="text-[#7f0353]">
+          <Link to="/Login" className="text-maintheme">
           <b>Klik Disini</b>
           </Link>
         </p>
@@ -108,7 +115,7 @@ const ResendActivationForm: FC = () => {
       {/* Bagian Gambar */}
       <div className="w-full md:w-1/2 mt-4 md:mt-0">
         <img
-          src="/assets/img/login-boy.png"
+          src="/assets/img/activationBoy.png"
           alt="resendActivation illustration"
           className="w-full h-full object-cover rounded-lg"
         />

@@ -1,8 +1,7 @@
 import Banner from "../organisms/Banner";
-import PopularSection from "../organisms/PopularSection";
-import OurCommitment from "../molecules/OurCommitment";
-import OurAchievements from "../molecules/Achievements";
-import TabSection from "../organisms/TabSection";
+import TipsSection from "../organisms/TipsSection";
+import FeatureSection from "../organisms/FeatureSection";
+import TheirStories from "../organisms/TheirStories";
 
 const LandingLayouts = () => {
 
@@ -17,10 +16,9 @@ const LandingLayouts = () => {
             <div className="w-full">
                 <div className="custom-slider-container">
                     <Banner images={images} />
-                    <PopularSection />
-                    <TabSection />
-                    <OurCommitment />
-                    <OurAchievements />
+                    <FeatureSection />
+                    <TipsSection />
+                    <TheirStories />
                 </div>
             </div>
         </div>

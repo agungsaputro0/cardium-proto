@@ -1,5 +1,5 @@
 {
-  "name": "fesy",
+  "name": "cardium",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@babylonjs/core": "^7.53.3",
+    "@babylonjs/gui": "^7.53.3",
+    "@babylonjs/inspector": "^7.53.3",
+    "@babylonjs/loaders": "^7.53.3",
+    "@babylonjs/materials": "^7.53.3",
+    "@babylonjs/serializers": "^7.53.3",
     "@headlessui/react": "^2.1.9",
     "@heroicons/react": "^2.1.5",
+    "@react-three/drei": "^9.75.0",
+    "@react-three/fiber": "^8.12.0",
     "@reduxjs/toolkit": "^2.2.8",
     "@types/google.maps": "^3.58.1",
     "antd": "^5.21.3",
@@ -22,6 +30,7 @@
     "js-sha256": "^0.11.0",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.477.0",
+    "phaser": "^3.88.2",
     "qrcode.react": "^4.2.0",
     "react": "^18.3.1",
     "react-confetti": "^6.4.0",
@@ -34,7 +43,8 @@
     "react-select": "^5.8.3",
     "react-slick": "^0.30.2",
     "react-use": "^17.6.0",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "three": "^0.149.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
@@ -45,6 +55,7 @@
     "@types/react-dom": "^18.3.0",
     "@types/react-helmet": "^6.1.11",
     "@types/react-slick": "^0.23.13",
+    "@types/three": "^0.174.0",
     "@vitejs/plugin-react": "^4.3.2",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.11.1",

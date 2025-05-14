@@ -1,14 +1,15 @@
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { UseScroll } from '../hooks/UseScroll';
-import { Link } from 'react-router-dom'; 
+import { Link, useLocation } from 'react-router-dom'; 
 import useIsMobile from '../hooks/useMobile';
-import { notification } from "antd";
+import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 
 const navigation = [
   { name: 'Beranda', to: '/Welcome', current: false },
-  { name: 'Artikel', to: '/login', current: false },
-  { name: 'Marketplace', to: '/login', current: false },
+  { name: 'EnsycloCardium', to: '/EnsycloCardium', current: false },
+  { name: 'Kalkulator Jantung', to: '/HeartCalculator', current: false },
+  { name: 'Tentang Kami', to: '/AboutUs', current: false },
 ];
 
 function classNames(...classes: string[]): string {
@@ -18,15 +19,10 @@ function classNames(...classes: string[]): string {
 const Navbar = () => {
   const isScrolled = UseScroll();
   const isMobile = useIsMobile();
-
-  const showNotification = (page: String) => {
-    if(page !== 'Beranda'){
-      notification.info({message: "Hai Sahabat Fesy",  description: "Silakan Login terlebih dahulu ya!",})
-    }
-  };
+  const location = useLocation();
 
   return (
-    <Disclosure as="nav" className={`${isScrolled ? 'bg-black/50' : 'bg-[#7f0353]'} border-b transition duration-300 w-full fixed z-50`}>
+    <Disclosure as="nav" className={`${isScrolled ? 'bg-black/50' : 'bg-maintheme'} transition duration-300 w-full fixed z-50`}>
       {() => (
         <>
          {!isScrolled && (
@@ -68,60 +64,83 @@ const Navbar = () => {
               <div className="flex flex-1 w-[100vw] items-center justify-center sm:items-stretch sm:justify-start">
               <Link to="/" className="flex items-center space-x-2">
                 <img
-                  src="/assets/img/fesy-full-logo-white.png" 
-                  alt="Fesy Logo"
+                  src="/assets/img/cardium-logo.png" 
+                  alt="Cardium Logo"
                   className="h-10 w-30 min-w-30"
                 />
                 {/* <b className="text-white"><span className="text-amber-400">| Terra</span>Hive</b> */}
               </Link>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
+                  {navigation.map((item) => {
+                    const isActive = location.pathname === item.to;
+
+                    return (
                       <Link
-                        onClick={() => showNotification(item.name)}
                         key={item.name}
-                        to={item.to}  
+                        to={item.to}
                         className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : isScrolled ? 'text-white hover:bg-[#c2beba]' : 'text-white hover:bg-[#c2beba] hover:text-white',
+                          isActive ? 'text-white border-b-2 border-white pb-[6px] rounded-none' : 
+                          isScrolled ? 'text-white hover:bg-[#c2beba]' : 'text-white hover:bg-[#c2beba] hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
                         )}
                       >
                         {item.name}
                       </Link>
-                    ))}
+                    );
+                  })}
                   </div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
                 {!isMobile && (
-                <Menu as="div" className="relative ml-3">
+                  <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="text-white border border-white relative flex rounded-md text-sm hover:bg-[#c2beba] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 hover:text-white focus:ring-offset-gray-800">
-                      <span className="absolute -inset-1.5" />
+                    <Menu.Button className="text-white border border-white relative flex items-center gap-2 rounded-md text-sm hover:bg-[#c2beba]/30 backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 hover:text-white focus:ring-offset-gray-800 transition-all px-3 py-2">
                       <span className="sr-only">Open user menu</span>
-                      <span className={`${isScrolled ? 'text-white hover:text-gray-200' : ''} hidden sm:inline lg:inline md:inline font-bold rounded-md px-3 py-2 text-sm font-medium transition-colors`}>
-                        Sign Up | Log In
-                      </span>
+                      <span className="font-bold text-sm hidden sm:inline">Sign Up | Log In</span>
                     </Menu.Button>
                   </div>
+                
                   <Transition
                     as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
+                    enter="transition ease-out duration-150"
+                    enterFrom="transform opacity-0 scale-90"
                     enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
+                    leave="transition ease-in duration-100"
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-50 mt-2 w-48 origin-top-right bg-white/90 rounded-lg shadow-lg border border-gray-400 py-1 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-xl bg-white/80 backdrop-blur-md shadow-xl ring-1 ring-black/10 focus:outline-none border border-gray-300 overflow-hidden">
+                      <div className="px-4 py-2 text-xs bg-footerbody text-boldmaintheme font-semibold border-b border-gray-200">Masuk ke Akun</div>
+                
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to="/login"  
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-800')}
+                            to="/login"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "flex items-center gap-2 px-4 py-3 text-sm text-gray-800 transition-all"
+                            )}
                           >
+                            <FaSignInAlt className="text-gray-500" />
                             Login
+                          </Link>
+                        )}
+                      </Menu.Item>
+                
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            to="/SignUp"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "flex items-center gap-2 px-4 py-3 text-sm text-gray-800 transition-all"
+                            )}
+                          >
+                            <FaUserPlus className="text-gray-500" />
+                            Sign Up
                           </Link>
                         )}
                       </Menu.Item>

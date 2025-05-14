@@ -5,19 +5,39 @@ interface ResendActivationResponse {
     message: string;
 }
 
-export const HandleResendActivation = async (
-    email: string
-) => {
+export const HandleResendActivation = async (email: string): Promise<{ success: boolean, message: string }> => {
     try {
-        const data = {
-            email: email
-        }
-        const response = await axios.post<ResendActivationResponse>(`${baseURL}/resend_email_activation`, data);
-        return response.data.message;
-    } catch (error) {
-        throw error;
+      const response = await axios.post<{ message: string }>(`${baseURL}/resend_activation_token`, { email });
+  
+      // Jika response status adalah sukses, berikan pesan yang sesuai
+      if (response.data.message === 'Kode aktivasi berhasil dikirim ulang.') {
+        return {
+          success: true,
+          message: 'Permintaan resend kode aktivasi telah berhasil. Silakan cek email Anda untuk instruksi lebih lanjut.',
+        };
+      }
+  
+      // Jika ada pesan selain itu, kembalikan pesan tersebut
+      return {
+        success: false,
+        message: response.data.message || 'Terjadi kesalahan, coba lagi nanti.',
+      };
+    } catch (error: any) {
+      if (axios.isAxiosError(error) && error.response) {
+        return {
+          success: false,
+          message:
+            error.response.data.message || 'Terjadi kesalahan dari server.',
+        };
+      }
+  
+      return {
+        success: false,
+        message: 'Terjadi kesalahan koneksi atau kesalahan tidak diketahui.',
+      };
     }
-};
+  };
+  
 
 export const HandleActivateAccount = async (
     uid: string,

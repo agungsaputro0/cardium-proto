@@ -1,6 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
-import { ShoppingBag } from 'lucide-react';
+import { HeartPulse } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { notification } from "antd";
 
@@ -10,10 +10,11 @@ interface CarouselProps {
 }
 
 const defaultTexts = [
-  { title: "Temukan Gaya Baru di Fesy", description: "Jual, beli, dan tukar pakaian bekas berkualitas!" },
-  { title: "Fashion Berkelanjutan", description: "Dukung gerakan zero waste dengan fashion yang lebih ramah lingkungan." },
-  { title: "Gaya Unik, Harga Terjangkau", description: "Dapatkan pakaian berkualitas dengan harga yang lebih hemat." }
+  { title: "Kenali Jantungmu dengan Cardium", description: "Pelajari cara menjaga kesehatan jantung dengan teknologi interaktif." },
+  { title: "Cek Risiko Jantungmu", description: "Gunakan kalkulator kesehatan untuk mengetahui risiko penyakit jantung." },
+  { title: "Ikuti tantangan sehat!", description: "Kumpulkan poin, dan tingkatkan kesehatan jantungmu dengan cara menyenangkan!" }
 ];
+
 
 const Banner: React.FC<CarouselProps> = ({ images, texts = defaultTexts }) => {
   const settings = {
@@ -31,7 +32,7 @@ const Banner: React.FC<CarouselProps> = ({ images, texts = defaultTexts }) => {
   const goToMarketPlace = () => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
     if (!currentUser) {
-      notification.info({message: "Hai Sahabat Fesy",  description: "Silakan Login terlebih dahulu ya!",})
+      notification.info({message: "Hai Cardiumers",  description: "Silakan Login terlebih dahulu ya!",})
       navigate("/Login");
     } else {
       navigate(`/Market`);
@@ -55,10 +56,10 @@ const Banner: React.FC<CarouselProps> = ({ images, texts = defaultTexts }) => {
               <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold drop-shadow-lg">{texts[index]?.title || defaultTexts[index % defaultTexts.length].title}</h2>
               <p className="text-sm sm:text-lg md:text-xl drop-shadow-md mt-2">{texts[index]?.description || defaultTexts[index % defaultTexts.length].description}</p>
               <button 
-                className="mt-4 px-6 py-3 bg-[#7f0353] text-white font-semibold rounded-full hover:bg-[#990866] transition flex items-center gap-2 shadow-lg" 
+                className="mt-4 px-6 py-3 bg-maintheme text-white font-semibold rounded-full hover:bg-[#990866] transition flex items-center gap-2 shadow-lg" 
                 onClick={() => goToMarketPlace()}
               >
-                <ShoppingBag size={20} /> Jelajahi Sekarang
+                <HeartPulse size={20} /> Jelajahi Sekarang
               </button>
             </div>
           </div>

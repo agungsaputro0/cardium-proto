@@ -1,14 +1,12 @@
 // HomeNavbar.tsx
-import { useState, useEffect } from "react";
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { ShoppingCartIcon, Bars3Icon } from '@heroicons/react/24/outline';
+import { Bars3Icon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { UseScroll } from '../hooks/UseScroll';
-import { message } from 'antd';
 import useNavigation from "../hooks/useNavigation";
-import { handleLogout as logout } from '../hooks/HandleLogin';
+import { useHandleLogout } from '../hooks/HandleLogin';
 import useIsMobile from "../hooks/useMobile";
 import { useOrderNotifications } from "../hooks/UseOrderNotification";
 
@@ -25,56 +23,8 @@ const HomeNavbar = ({ userName }: HomeNavbarProps) => {
   const isScrolled = UseScroll(); 
   const isMobile = useIsMobile();
   const navigate = useNavigate();
-  const [cartCount, setCartCount] = useState<number>(0);
+  const logout = useHandleLogout();
 
-  const handleClick = () => {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
-  
-    if (currentUser.role === 2) {
-      navigate(`/MyCart`);
-    } else {
-      navigate(`/Cart`);
-    }
-  };
-  
-  const updateCartCount = () => {
-    // Ambil user yang sedang login
-    const currentUser = localStorage.getItem("currentUser");
-    if (!currentUser) {
-      setCartCount(0);
-      return;
-    }
-  
-    const parsedUser = JSON.parse(currentUser);
-    const currentUserID = parsedUser?.id;
-  
-    if (!currentUserID) {
-      setCartCount(0);
-      return;
-    }
-  
-    // Ambil data keranjang dari Local Storage
-    const cartData = JSON.parse(localStorage.getItem("cartData") || "{}");
-  
-    // Ambil hanya produk dari user yang sedang login
-    const userCart = cartData[currentUserID] || [];
-  
-    // Update jumlah produk di keranjang
-    setCartCount(userCart.length);
-  };
-  
-  // Panggil saat komponen dimuat & dengarkan event "cartUpdated"
-  useEffect(() => {
-    updateCartCount();
-    
-    // Event listener untuk menangkap perubahan Local Storage secara real-time
-    const handleCartUpdate = () => updateCartCount();
-    window.addEventListener("cartUpdated", handleCartUpdate);
-  
-    return () => {
-      window.removeEventListener("cartUpdated", handleCartUpdate);
-    };
-  }, []);  
 
   const handleProfileClick = () => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
@@ -83,19 +33,6 @@ const HomeNavbar = ({ userName }: HomeNavbarProps) => {
       navigate(`/MyPage`);
     } else {
       navigate('/UserPage'); 
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      logout();
-      message.success('Logout berhasil');
-      setTimeout(() => {
-        window.location.href = '/Login';
-      }, 1000); 
-    } catch (error) {
-      console.log(error);
-      message.error('Terjadi kesalahan saat logout');
     }
   };
 
@@ -113,7 +50,7 @@ const HomeNavbar = ({ userName }: HomeNavbarProps) => {
   const orderStats = useOrderNotifications(currentUser?.id);
 
   return (
-    <Disclosure as="nav" className={`${isScrolled ? 'bg-black/50' : 'bg-fesypurple'} border-b transition duration-300 w-full fixed z-50`}>
+    <Disclosure as="nav" className={`${isScrolled ? 'bg-black/50' : 'bg-maintheme'} border-b transition duration-300 w-full fixed z-50`}>
       {() => (
         <>
      {!isScrolled && (
@@ -157,8 +94,8 @@ const HomeNavbar = ({ userName }: HomeNavbarProps) => {
               <div className="flex flex-1 w-[100vw] items-center justify-center sm:items-stretch sm:justify-start">
               <Link to="/" className="flex items-center space-x-2">
                <img
-                  src="/assets/img/fesy-full-logo-white.png" 
-                  alt="Fesy Logo"
+                  src="/assets/img/cardium-logo.png" 
+                  alt="Cardium Logo"
                   className="h-10 w-30"
                 />
               </Link>
@@ -188,14 +125,6 @@ const HomeNavbar = ({ userName }: HomeNavbarProps) => {
               </div>
 
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <div onClick={handleClick}  className="relative p-2 mr-2 text-white hover:text-pink-200">
-                  <ShoppingCartIcon className="h-6 w-6" />
-                  {cartCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full px-2">
-                      {cartCount}
-                    </span>
-                  )}
-                </div>
                 {isMobile && (
                     <Menu as="div" className="relative">
                     <div>
@@ -221,7 +150,7 @@ const HomeNavbar = ({ userName }: HomeNavbarProps) => {
                           <Menu.Item>
                             {({ active }) => (
                               <button
-                                onClick={handleLogout}
+                                onClick={logout}
                                 className={classNames(
                                   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                   'block px-4 py-2 text-sm w-full text-left'
@@ -274,7 +203,7 @@ const HomeNavbar = ({ userName }: HomeNavbarProps) => {
                         <Menu.Item>
                           {({ active }) => (
                             <button
-                              onClick={handleLogout}
+                              onClick={logout}
                               className={classNames(
                                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                 'block px-4 py-2 text-sm w-full text-left'

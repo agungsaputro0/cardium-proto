@@ -1,9 +1,9 @@
 import { useAuth } from "../hooks/AuthContext";
 
 const useNavigation = () => {
-  const { userRole } = useAuth();
+  const { userType } = useAuth();
 
-  return userRole === 1
+  return userType === "user"
     ? [
         { name: "Beranda", to: "/Home", current: false },
         { name: "Transaksi", to: "/History", current: false },

@@ -18,6 +18,9 @@ body {
     margin: 0 20px;
   }
   
+  img {
+    -webkit-user-drag: none;
+  }
 
 /* global.css */
 .shadow-left-bottom {
@@ -41,7 +44,7 @@ body {
     top: 64px;
     left: 0;
     z-index: 100;
-    color: #7f0353;
+    color: #c40d43;
 }
 
 .sidebar-expanded {
@@ -49,7 +52,7 @@ body {
 }
 
 .sidebar-menu-item {
-    color: #7f0353;
+    color: #c40d43;
     display: flex;
     align-items: center;
     padding: 10px 20px;
@@ -101,7 +104,7 @@ aside {
 }
 
 .ant-menu {
-    color: #7f0353!important;
+    color: #c40d43!important;
     background: transparent !important;
     border: none;
 }
@@ -111,7 +114,7 @@ aside {
 }
 
 .ant-menu-item {
-    color: #7f0353!important;
+    color: #c40d43!important;
 }
 
 .ant-menu-item:hover {
@@ -177,7 +180,7 @@ aside {
   
   /* Gaya untuk thumb scrollbar */
   ::-webkit-scrollbar-thumb {
-    background: #7f0353; /* Warna thumb scrollbar */
+    background: #c40d43; /* Warna thumb scrollbar */
     border-radius: 10px; /* Membuat thumb lebih bulat */
     border: 2px solid #f1f1f1; /* Menambahkan border untuk kontras */
   }
@@ -194,4 +197,72 @@ aside {
     max-width: 100%;
     max-height: 80vh;
     height: 80vh;
+  }
+
+  .cardium-text {
+    display: inline;
+  }
+  
+  .slogan-text {
+    display: inline;
+  }
+
+  @media (max-width: 768px) {
+    .slogan-text {
+      display: none;
+    }
+
+    .cardium-text::after {
+      content: " Prioritaskan Kesehatan Jantung";
+    }
+  }
+
+  .drilldown-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: auto;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .chevron {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .chevron.rotate {
+    transform: rotate(180deg);
+  }
+  
+  .content {
+    text-align: justify;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
+    color: #fff;
+  }
+  
+  .content.open {
+    opacity: 1;
+    max-height: 100%;
+    color: #000;
+  }
+  
+  .open {
+    margin-top: 16px;
   }

@@ -1,3 +1,7 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -93,3 +97,61 @@
   object-fit: cover; /* Memastikan semua gambar memenuhi area tanpa distorsi */
 }
 
+/* Lingkaran angka */
+.point-number {
+  background: rgba(50, 50, 50, 0.6);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.point-number:hover {
+  background: rgba(255, 255, 255, 0.8);
+  color: black;
+}
+
+/* Tooltip panel */
+.tooltip {
+  background: rgba(20, 20, 20, 0.9);
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  max-width: 220px;
+  font-size: 13px;
+  line-height: 1.4;
+  backdrop-filter: blur(6px);
+  transition: opacity 0.3s ease-in-out;
+  position: relative;
+}
+
+/* Tombol navigasi */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.nav-buttons button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.nav-buttons button:hover {
+  background: rgba(255, 255, 255, 0.5);
+}

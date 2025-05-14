@@ -9,11 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        maintheme: "#c40d43",
+        boldmaintheme: "#7a0125",
         fesypurple: "#7f0353",
-        fesygreen: "#1B5E20",
-        fesyteal: "#014d4e",
-        footerblue: "#f5f2ee",
-        footeruplist: "#cec4ba",
+        footertop: "#f5f2ee",
+        footerbody: "#FAACC2",
         background: "var(--background)",
         foreground: "var(--foreground)",
       },

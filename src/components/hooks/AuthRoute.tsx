@@ -8,13 +8,13 @@ interface AuthRouteProps {
 }
 
 const AuthRoute: React.FC<AuthRouteProps> = ({ auth, children }) => {
-  const { userRole, userAuth } = useAuth();
+  const { userType, userAuth } = useAuth();
 
   const hasAccess = userAuth?.some((level) => auth.includes(level));
 
   if (!hasAccess) {
     
-    if (userRole !== 1) {
+    if (userType !== "user") {
         return <Navigate to="/portal" replace />; 
     } 
     

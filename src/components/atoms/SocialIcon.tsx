@@ -5,9 +5,9 @@ import React from 'react';
 const SocialIcon: React.FC = () => {
   return (
     <div className="social-icons whitespace-nowrap">
-      <FacebookOutlined style={{ fontSize: '24px', margin: '0 10px', color: '#5c595f' }} />
-      <TwitterOutlined style={{ fontSize: '24px', margin: '0 10px', color: '#5c595f' }} />
-      <YoutubeOutlined style={{ fontSize: '24px', margin: '0 10px', color: '#5c595f' }} />
+      <FacebookOutlined style={{ fontSize: '24px', margin: '0 10px', color: '#5c595f', cursor: 'pointer' }} />
+      <TwitterOutlined style={{ fontSize: '24px', margin: '0 10px', color: '#5c595f', cursor: 'pointer' }} />
+      <YoutubeOutlined style={{ fontSize: '24px', margin: '0 10px', color: '#5c595f', cursor: 'pointer' }} />
     </div>
   );
 };
