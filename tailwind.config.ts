@@ -22,6 +22,18 @@ const config: Config = {
         'mediumgap': '910px', 
         'largegap': '1150px',
       },
+      keyframes: {
+        wavepulse: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '20%': { transform: 'scale(1.1)' },
+          '40%': { transform: 'scale(0.95)' },
+          '60%': { transform: 'scale(1.05)' },
+          '80%': { transform: 'scale(0.98)' },
+        },
+      },
+      animation: {
+        wavepulse: 'wavepulse 1.5s infinite ease-in-out',
+      },
     },
   },
   plugins: [],

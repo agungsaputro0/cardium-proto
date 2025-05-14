@@ -14,7 +14,7 @@ const MobileBottomNav = () => {
           <FaBook size={22} />
           <span className="text-xs">Edukasi</span>
         </Link>
-        <Link to="/kalkulator"  className="flex-1 flex flex-col items-center text-maintheme hover:text-gray-800 text-center">
+        <Link to="/HeartCalculator"  className="flex-1 flex flex-col items-center text-maintheme hover:text-gray-800 text-center">
           <FaHeartbeat size={22} />
           <span className="text-xs">Kalkulator</span>
         </Link>
