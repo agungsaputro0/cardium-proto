@@ -8,7 +8,7 @@ type StakeholderRouteProps = {
 };
 
 const StakeholderRoute = ({ children }: StakeholderRouteProps) => {
-  const { userName, loading, userRole } = useAuth();
+  const { userName, loading, userType } = useAuth();
 
   if (loading) {
     return <LoadingSpinner />;
@@ -18,7 +18,7 @@ const StakeholderRoute = ({ children }: StakeholderRouteProps) => {
     return <Navigate to="/Login" replace />;
   }
 
-  if (userRole === 1) {
+  if (userType === "user") {
     return <Navigate to="/Home" replace />; 
   }
 

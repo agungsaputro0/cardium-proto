@@ -5,7 +5,7 @@ import { UseScroll } from "../hooks/UseScroll";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/AuthContext";
 import { message } from "antd";
-import { handleLogout as logout } from "../hooks/HandleLogin";
+
 import MobileSidebar from "./MobileSidebar";
 
 function classNames(...classes: (string | boolean | undefined)[]): string {
@@ -71,7 +71,6 @@ const MarketPlaceNavbar = () => {
 
   const handleLogout = async () => {
     try {
-      logout();
       message.success("Logout berhasil");
       setTimeout(() => {
         window.location.href = "/Login";
